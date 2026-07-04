@@ -4,6 +4,7 @@ import Logo from './components/Logo'
 import './App.css'
 
 // Les deux hemicycles proposes ; chacun garde sa propre position de curseur.
+// orientation : 0 = bombe a droite, 90 = bombe en bas, 180 = bombe a gauche, 270 = bombe en haut.
 const HEMICYCLES = [
   {
     id: 'debat',
@@ -12,11 +13,6 @@ const HEMICYCLES = [
     poleHaut: 'Débat démocratique',
     poleBas: 'Efficacité',
     valeurInitiale: 62,
-    note:
-      "Indicateur synthétique calculé à partir des données ouvertes de l'Assemblée (comptes " +
-      'rendus de séance, votes, amendements). Déplacez le curseur pour situer un texte entre ' +
-      "efficacité de la procédure (bas) et intensité du débat en hémicycle (haut), et " +
-      "interroger ce que l'on souhaite mesurer, automatiser et rendre public demain.",
   },
   {
     id: 'recit',
@@ -26,11 +22,7 @@ const HEMICYCLES = [
     poleBas: 'Volonté',
     valeurInitiale: 50,
     logoCentre: true,
-    miroir: true,
-    note:
-      'Seconde vue du récit : le même hémicycle, le logo en son centre. Déplacez le curseur ' +
-      'pour situer une décision entre la volonté (bas) et la vérité consensuelle (haut), et ' +
-      "interroger ce qui doit guider demain l'écriture de la loi.",
+    orientation: 90,
   },
 ]
 
@@ -90,10 +82,9 @@ export default function App() {
                 titre={h.titre}
                 poleHaut={h.poleHaut}
                 poleBas={h.poleBas}
-                note={h.note}
                 valeurInitiale={h.valeurInitiale}
                 logoCentre={h.logoCentre}
-                miroir={h.miroir}
+                orientation={h.orientation}
               />
             </div>
           ))}

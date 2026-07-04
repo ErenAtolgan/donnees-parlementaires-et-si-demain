@@ -1,8 +1,8 @@
 import { useId, useState } from 'react'
 
-// Hemicycle PLEIN (demi-disque) oriente vers la droite, utilise comme axe :
-// pole bas = Efficacite, pole haut = Debat democratique.
-// Palette du LOGO : violet -> bleu -> cyan, en degrade global vertical
+// Hemicycle PLEIN (demi-disque) oriente selon la prop `orientation`, utilise comme axe :
+// pole bas = 0, pole haut = 100 le long de l'arc.
+// Palette du LOGO : violet -> bleu -> cyan, en degrade global le long de l'axe
 // (violet au pole haut, cyan au pole bas), partage par la jauge et le curseur.
 // Jauge en ARC le long du bord externe, pointee par une main.
 
@@ -15,6 +15,32 @@ const CY = 150
 const R = 134
 const MILIEU = 50
 
+// Orientation du demi-disque : rotation horaire autour du centre du bord plat.
+// 0 = bombe a droite, 90 = bombe en bas, 180 = bombe a gauche, 270 = bombe en haut.
+// Chaque entree donne le viewBox et la position des libelles de poles.
+const ORIENTATIONS = {
+  0: {
+    viewBox: '0 -26 208 348',
+    haut: { x: 14, y: -10, anchor: 'start' },
+    bas: { x: 14, y: 312, anchor: 'start' },
+  },
+  90: {
+    viewBox: '-126 82 316 228',
+    haut: { x: 170, y: 98, anchor: 'end' },
+    bas: { x: -98, y: 98, anchor: 'start' },
+  },
+  180: {
+    viewBox: '-136 -26 208 348',
+    haut: { x: 58, y: 312, anchor: 'end' },
+    bas: { x: 58, y: -10, anchor: 'end' },
+  },
+  270: {
+    viewBox: '-126 -30 316 216',
+    haut: { x: -98, y: 176, anchor: 'start' },
+    bas: { x: 170, y: 176, anchor: 'end' },
+  },
+}
+
 // Angle pour une position donnee (0 = bas, 100 = haut ; arc bombe a droite).
 function angle(p) {
   return -Math.PI / 2 + (p / 100) * Math.PI
@@ -23,6 +49,17 @@ function angle(p) {
 function point(p, r) {
   const a = angle(p)
   return [CX + r * Math.cos(a), CY - r * Math.sin(a)]
+}
+
+// Rotation horaire d'un point autour du centre du bord plat (CX, CY).
+function pivote([x, y], rot) {
+  const rad = (rot * Math.PI) / 180
+  const dx = x - CX
+  const dy = y - CY
+  return [
+    CX + dx * Math.cos(rad) - dy * Math.sin(rad),
+    CY + dx * Math.sin(rad) + dy * Math.cos(rad),
+  ]
 }
 
 // Arc le long du bord externe entre deux positions (debut < fin).
@@ -41,12 +78,14 @@ function couleurValeur(v) {
 }
 
 // Main-curseur posee SUR l'arc, dessinee en SVG aux couleurs de la charte :
-// une vraie silhouette de main (paume + 4 doigts + pouce), doigts vers
-// l'exterieur de l'hemicycle. Les doigts se deplient un a un en montant
-// vers le debat democratique (index seul en bas -> main ouverte pouce compris).
-function MainCurseur({ valeur }) {
+// une vraie silhouette de main (paume + 4 doigts + pouce). Par defaut les doigts
+// pointent vers l'INTERIEUR de l'hemicycle (interieure=false pour l'exterieur).
+// Les doigts se deplient un a un en montant vers le pole haut
+// (index seul en bas -> main ouverte pouce compris).
+function MainCurseur({ valeur, interieure = true }) {
   const [x, y] = point(valeur, R)
   const deg = (angle(valeur) * 180) / Math.PI
+  const rotation = 90 - deg + (interieure ? 180 : 0)
   const nb = valeur < 20 ? 1 : valeur < 40 ? 2 : valeur < 60 ? 3 : valeur < 80 ? 4 : 5
   const couleur = couleurValeur(valeur)
 
@@ -61,7 +100,7 @@ function MainCurseur({ valeur }) {
   const pouce = nb >= 5 ? { x2: 18, y2: -2 } : { x2: 12, y2: 2 }
 
   return (
-    <g transform={`translate(${x} ${y}) rotate(${90 - deg})`}>
+    <g transform={`translate(${x} ${y}) rotate(${rotation})`}>
       {/* Halo blanc pour detacher la main de l'arc */}
       {doigts.map((d, i) => (
         <line
@@ -118,10 +157,10 @@ export default function Gauge({
   titre = 'Efficacité du débat démocratique',
   poleHaut = 'Débat démocratique',
   poleBas = 'Efficacité',
-  note,
   valeurInitiale = 62,
   logoCentre = false,
-  miroir = false,
+  mainInterieure = true,
+  orientation = 0,
 }) {
   const uid = useId()
   const [valeur, setValeur] = useState(valeurInitiale)
@@ -130,9 +169,20 @@ export default function Gauge({
   const gradLogo = `gradLogo-${uid}`
   const gradDisque = `gradDisque-${uid}`
 
+  const o = ORIENTATIONS[orientation] ?? ORIENTATIONS[0]
+  const rot = ORIENTATIONS[orientation] ? orientation : 0
+
   // Bornes de la portion coloree : de l'extremite (haut ou bas) au curseur.
   const debut = versLeHaut ? valeur : 0
   const fin = versLeHaut ? 100 : valeur
+
+  // Medaillon du logo A CHEVAL sur le bord plat : centre au milieu du bord plat
+  // (CX, CY), invariant par rotation — une moitie dans l'hemicycle, une moitie dehors.
+  const horizontal = rot === 90 || rot === 270
+  const rLogo = 42
+  const tailleImg = 68
+  const [xLogo, yLogo] = [CX, CY]
+  const yNom = yLogo + rLogo + 20
 
   return (
     <section className="carte">
@@ -141,13 +191,14 @@ export default function Gauge({
 
       <div className="gauge-wrap">
         <svg
-          viewBox="0 -26 208 348"
-          className="gauge-svg"
+          viewBox={o.viewBox}
+          className={`gauge-svg${horizontal ? ' gauge-svg-large' : ''}`}
           role="img"
-          aria-label={`Position du curseur entre ${poleBas} (bas) et ${poleHaut} (haut)`}
+          aria-label={`Position du curseur entre ${poleBas} et ${poleHaut}`}
         >
           <defs>
-            {/* Degrade global du logo : violet (haut) -> bleu -> cyan (bas) */}
+            {/* Degrade global du logo : violet (pole haut) -> bleu -> cyan (pole bas).
+                En userSpaceOnUse, il suit la rotation du dessin. */}
             <linearGradient
               id={gradLogo}
               gradientUnits="userSpaceOnUse"
@@ -168,17 +219,17 @@ export default function Gauge({
             </linearGradient>
           </defs>
 
-          {/* Poles de l'axe (hors miroir pour rester lisibles) */}
-          <text x={miroir ? 194 : 14} y={-10} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
+          {/* Poles de l'axe (hors rotation pour rester lisibles) */}
+          <text x={o.haut.x} y={o.haut.y} className="axe-label" textAnchor={o.haut.anchor}>
             {poleHaut}
           </text>
-          <text x={miroir ? 194 : 14} y={312} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
+          <text x={o.bas.x} y={o.bas.y} className="axe-label" textAnchor={o.bas.anchor}>
             {poleBas}
           </text>
 
-          {/* Dessin, reflete horizontalement si miroir (bombe a gauche) */}
-          <g transform={miroir ? 'translate(208 0) scale(-1 1)' : undefined}>
-            {/* Hemicycle plein (demi-disque bombe a droite) */}
+          {/* Dessin, tourne selon l'orientation */}
+          <g transform={rot ? `rotate(${rot} ${CX} ${CY})` : undefined}>
+            {/* Hemicycle plein (demi-disque) */}
             <path
               d={`M ${CX} ${CY + R} A ${R} ${R} 0 0 0 ${CX} ${CY - R} Z`}
               fill={`url(#${gradDisque})`}
@@ -195,35 +246,23 @@ export default function Gauge({
             />
 
             {/* Main pointant la position */}
-            <MainCurseur valeur={valeur} />
+            <MainCurseur valeur={valeur} interieure={mainInterieure} />
           </g>
 
-          {/* Logo au centre du demi-disque (seconde vue du recit), jamais reflete */}
+          {/* Logo au centre du demi-disque (seconde vue du recit), jamais tourne */}
           {logoCentre && (
             <g>
-              {/* Centre visuel du demi-disque : a ~0.42 R du bord plat */}
-              <circle
-                cx={miroir ? 208 - CX - R * 0.42 : CX + R * 0.42}
-                cy={CY}
-                r={42}
-                fill="#ffffff"
-                stroke="#dddddd"
-              />
+              <circle cx={xLogo} cy={yLogo} r={rLogo} fill="#ffffff" stroke="#dddddd" />
               <image
                 href="/logo.png"
-                x={(miroir ? 208 - CX - R * 0.42 : CX + R * 0.42) - 34}
-                y={CY - 34}
-                width={68}
-                height={68}
+                x={xLogo - tailleImg / 2}
+                y={yLogo - tailleImg / 2}
+                width={tailleImg}
+                height={tailleImg}
                 preserveAspectRatio="xMidYMid meet"
               />
               {/* Nom sous le logo (IA et AN de MarIANne aux couleurs de la charte) */}
-              <text
-                x={miroir ? 208 - CX - R * 0.42 : CX + R * 0.42}
-                y={CY + 65}
-                className="logo-nom"
-                textAnchor="middle"
-              >
+              <text x={xLogo} y={yNom} className="logo-nom" textAnchor="middle">
                 Mar
                 <tspan fill={VIOLET}>IA</tspan>
                 <tspan fill={BLEU}>N</tspan>
@@ -247,8 +286,6 @@ export default function Gauge({
         />
         <span className="pole">{poleHaut}</span>
       </div>
-
-      {note && <p className="carte-note">{note}</p>}
     </section>
   )
 }

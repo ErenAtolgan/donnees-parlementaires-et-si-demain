@@ -173,6 +173,11 @@
   display: block;
 }
 
+/* Orientations horizontales (bombe en bas ou en haut) : dessin plus large */
+.gauge-svg-large {
+  max-width: 330px;
+}
+
 /* Nom MarIANne sous le logo central */
 .logo-nom {
   font-family: var(--font-serif);
@@ -209,13 +214,6 @@
   flex: 1;
   min-width: 0;
   accent-color: #2f5fd8; /* bleu du logo */
-}
-
-.carte-note {
-  margin: 1.1rem 0 0;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  color: var(--muted-foreground);
 }
 
 /* Pied de page */
