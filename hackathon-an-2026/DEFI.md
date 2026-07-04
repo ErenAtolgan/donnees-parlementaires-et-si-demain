@@ -66,8 +66,7 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 <!-- Ajoutez vos captures : - [Image 2](images/image-2.png) -->
 
 ### Documents
-- [Scénarios de design fiction](docs/scenarios.md)
-- [Sources de données ouvertes utilisées](docs/donnees.md)
+(donnees-parlementaires-et-si-demain/blob/main/hackathon-an-2026/Et%20si%2C%20en%202035%2C%20nous%20plac%CC%A7ons%20l%E2%80%99IA%20au%20coeurde%20la%20fabrique%20de%20la%20loi%20et%20du%20de%CC%81bat%20de%CC%81mocratique%20.pdf)
 
 ### URL de démonstration
 <!-- Renseignez l'URL de votre demo une fois deployee -->
