@@ -11,12 +11,25 @@
   padding: 1rem 1.5rem;
 }
 
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .brand {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  max-width: 960px;
-  margin: 0 auto;
+}
+
+.logo {
+  height: 56px;
+  width: auto;
+  display: block;
+  border-radius: 8px;
 }
 
 .brand-bar {
@@ -94,36 +107,6 @@
   display: block;
 }
 
-/* Combobox de lecture */
-.select-lecture {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.1rem;
-}
-
-.select-lecture label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--muted-foreground);
-}
-
-.select-lecture select {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--foreground);
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.45rem 0.75rem;
-}
-
-.select-lecture select:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 1px;
-}
-
 /* Poles de l'axe dans le SVG */
 .axe-label {
   font-family: var(--font-sans);
@@ -132,29 +115,26 @@
   fill: var(--muted-foreground);
 }
 
-/* Legende des curseurs */
-.legende-curseurs {
+/* Slider de reglage */
+.reglage {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.9rem;
-}
-
-.chip {
-  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--foreground);
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
+.reglage .pole {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.reglage input[type='range'] {
+  flex: 1;
+  min-width: 0;
+  accent-color: #2f5fd8; /* bleu du logo */
 }
 
 .carte-note {
