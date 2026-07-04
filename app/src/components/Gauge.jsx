@@ -121,6 +121,7 @@ export default function Gauge({
   note,
   valeurInitiale = 62,
   logoCentre = false,
+  miroir = false,
 }) {
   const uid = useId()
   const [valeur, setValeur] = useState(valeurInitiale)
@@ -167,38 +168,50 @@ export default function Gauge({
             </linearGradient>
           </defs>
 
-          {/* Poles de l'axe */}
-          <text x={14} y={-10} className="axe-label">
+          {/* Poles de l'axe (hors miroir pour rester lisibles) */}
+          <text x={miroir ? 194 : 14} y={-10} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
             {poleHaut}
           </text>
-          <text x={14} y={312} className="axe-label">
+          <text x={miroir ? 194 : 14} y={312} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
             {poleBas}
           </text>
 
-          {/* Hemicycle plein (demi-disque bombe a droite) */}
-          <path
-            d={`M ${CX} ${CY + R} A ${R} ${R} 0 0 0 ${CX} ${CY - R} Z`}
-            fill={`url(#${gradDisque})`}
-            stroke="#dddddd"
-          />
+          {/* Dessin, reflete horizontalement si miroir (bombe a gauche) */}
+          <g transform={miroir ? 'translate(208 0) scale(-1 1)' : undefined}>
+            {/* Hemicycle plein (demi-disque bombe a droite) */}
+            <path
+              d={`M ${CX} ${CY + R} A ${R} ${R} 0 0 0 ${CX} ${CY - R} Z`}
+              fill={`url(#${gradDisque})`}
+              stroke="#dddddd"
+            />
 
-          {/* Arc de l'extremite (haut ou bas) jusqu'au curseur */}
-          <path
-            d={cheminArc(debut, fin)}
-            fill="none"
-            stroke={`url(#${gradLogo})`}
-            strokeWidth={10}
-            strokeLinecap="round"
-          />
+            {/* Arc de l'extremite (haut ou bas) jusqu'au curseur */}
+            <path
+              d={cheminArc(debut, fin)}
+              fill="none"
+              stroke={`url(#${gradLogo})`}
+              strokeWidth={10}
+              strokeLinecap="round"
+            />
 
-          {/* Logo au centre du demi-disque (seconde vue du recit) */}
+            {/* Main pointant la position */}
+            <MainCurseur valeur={valeur} />
+          </g>
+
+          {/* Logo au centre du demi-disque (seconde vue du recit), jamais reflete */}
           {logoCentre && (
             <g>
               {/* Centre visuel du demi-disque : a ~0.42 R du bord plat */}
-              <circle cx={CX + R * 0.42} cy={CY} r={42} fill="#ffffff" stroke="#dddddd" />
+              <circle
+                cx={miroir ? 208 - CX - R * 0.42 : CX + R * 0.42}
+                cy={CY}
+                r={42}
+                fill="#ffffff"
+                stroke="#dddddd"
+              />
               <image
                 href="/logo.png"
-                x={CX + R * 0.42 - 34}
+                x={(miroir ? 208 - CX - R * 0.42 : CX + R * 0.42) - 34}
                 y={CY - 34}
                 width={68}
                 height={68}
@@ -206,9 +219,6 @@ export default function Gauge({
               />
             </g>
           )}
-
-          {/* Main pointant la position */}
-          <MainCurseur valeur={valeur} />
         </svg>
       </div>
 

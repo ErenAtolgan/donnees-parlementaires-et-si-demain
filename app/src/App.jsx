@@ -26,6 +26,7 @@ const HEMICYCLES = [
     poleBas: 'Volonté',
     valeurInitiale: 50,
     logoCentre: true,
+    miroir: true,
     note:
       'Seconde vue du récit : le même hémicycle, le logo en son centre. Déplacez le curseur ' +
       'pour situer une décision entre la volonté (bas) et la vérité consensuelle (haut), et ' +
@@ -92,6 +93,7 @@ export default function App() {
                 note={h.note}
                 valeurInitiale={h.valeurInitiale}
                 logoCentre={h.logoCentre}
+                miroir={h.miroir}
               />
             </div>
           ))}
