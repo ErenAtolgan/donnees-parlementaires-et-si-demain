@@ -154,7 +154,6 @@ function MainCurseur({ valeur, interieure = true }) {
 }
 
 export default function Gauge({
-  titre = 'Efficacité du débat démocratique',
   poleHaut = 'Débat démocratique',
   poleBas = 'Efficacité',
   valeurInitiale = 62,
@@ -187,7 +186,6 @@ export default function Gauge({
   return (
     <section className="carte">
       <p className="eyebrow">Indicateur prototype, design fiction</p>
-      <h1 className="carte-titre">{titre}</h1>
 
       <div className="gauge-wrap">
         <svg

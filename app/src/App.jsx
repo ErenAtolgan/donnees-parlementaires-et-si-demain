@@ -9,7 +9,6 @@ const HEMICYCLES = [
   {
     id: 'debat',
     menu: 'Débat démocratique',
-    titre: 'Efficacité du débat démocratique',
     poleHaut: 'Débat démocratique',
     poleBas: 'Efficacité',
     valeurInitiale: 62,
@@ -17,7 +16,6 @@ const HEMICYCLES = [
   {
     id: 'recit',
     menu: 'Vérité et volonté',
-    titre: 'Entre vérité consensuelle et volonté',
     poleHaut: 'Vérité consensuelle',
     poleBas: 'Volonté',
     valeurInitiale: 50,
@@ -79,7 +77,6 @@ export default function App() {
           {HEMICYCLES.map((h, i) => (
             <div key={h.id} hidden={i !== actif}>
               <Gauge
-                titre={h.titre}
                 poleHaut={h.poleHaut}
                 poleBas={h.poleBas}
                 valeurInitiale={h.valeurInitiale}
