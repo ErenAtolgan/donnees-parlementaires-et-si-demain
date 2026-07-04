@@ -35,14 +35,25 @@ Le workflow GitHub Actions [`deploy-alwaysdata.yml`](.github/workflows/deploy-al
 - **CI** : lint (Oxlint) et build de production sur chaque pull request et push sur `main` ;
 - **CD** : à chaque push sur `main` (ou déclenchement manuel), déploie le contenu de `app/dist/` sur AlwaysData via `rsync` en SSH. AlwaysData est la seule cible de déploiement.
 
-Secrets à configurer dans le dépôt GitHub (*Settings → Secrets and variables → Actions*) :
+La cible AlwaysData est configurée directement dans le workflow (bloc `env`) :
 
-| Secret | Description | Exemple |
-| --- | --- | --- |
-| `ALWAYSDATA_SSH_HOST` | Hôte SSH du compte AlwaysData | `ssh-moncompte.alwaysdata.net` |
-| `ALWAYSDATA_SSH_USER` | Utilisateur SSH (activé dans *Accès distant → SSH* de l'admin AlwaysData) | `moncompte` |
-| `ALWAYSDATA_SSH_KEY` | Clé privée SSH ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (`~/.ssh/authorized_keys`) | contenu de `id_ed25519` |
-| `ALWAYSDATA_DEPLOY_PATH` | Répertoire cible servi par le site AlwaysData (type « Fichiers statiques ») | `/home/moncompte/www` |
+- hôte SSH : `ssh-openlaw.alwaysdata.net`
+- utilisateur : `openlaw`
+- répertoire déployé : `/home/openlaw/www`
+
+Un seul secret est à configurer dans le dépôt GitHub (*Settings → Secrets and variables → Actions → New repository secret*) :
+
+| Secret | Description |
+| --- | --- |
+| `ALWAYSDATA_SSH_KEY` | Clé privée SSH dédiée au déploiement ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (admin AlwaysData → *Accès distant → SSH → clés publiques* de l'utilisateur `openlaw`, ou `~/.ssh/authorized_keys`) |
+
+Pour générer la paire de clés en local :
+
+```
+ssh-keygen -t ed25519 -f alwaysdata_deploy -N "" -C "deploy-github-actions"
+```
+
+Puis mettre le contenu de `alwaysdata_deploy` (clé privée) dans le secret `ALWAYSDATA_SSH_KEY`, et celui de `alwaysdata_deploy.pub` sur le compte AlwaysData.
 
 ## Structure du dépôt
 
