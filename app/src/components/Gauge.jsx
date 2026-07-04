@@ -25,9 +25,9 @@ const ORIENTATIONS = {
     bas: { x: 14, y: 312, anchor: 'start' },
   },
   90: {
-    viewBox: '-126 82 316 228',
-    haut: { x: 170, y: 98, anchor: 'end' },
-    bas: { x: -98, y: 98, anchor: 'start' },
+    viewBox: '-126 104 316 206',
+    haut: { x: 170, y: 118, anchor: 'end' },
+    bas: { x: -98, y: 118, anchor: 'start' },
   },
   180: {
     viewBox: '-136 -26 208 348',
@@ -179,10 +179,10 @@ export default function Gauge({
   // Medaillon du logo A CHEVAL sur le bord plat : centre au milieu du bord plat
   // (CX, CY), invariant par rotation — une moitie dans l'hemicycle, une moitie dehors.
   const horizontal = rot === 90 || rot === 270
-  const rLogo = 42
-  const tailleImg = 68
+  const rLogo = 24
+  const tailleImg = 38
   const [xLogo, yLogo] = [CX, CY]
-  const yNom = yLogo + rLogo + 20
+  const yNom = yLogo + rLogo + 18
 
   return (
     <section className="carte">
