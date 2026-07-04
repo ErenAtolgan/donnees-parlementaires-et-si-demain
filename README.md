@@ -35,7 +35,9 @@ Le workflow GitHub Actions [`deploy-alwaysdata.yml`](.github/workflows/deploy-al
 - **CI** : lint (Oxlint) et build de production sur chaque pull request et push sur `main` ;
 - **CD** : à chaque push sur `main` (ou déclenchement manuel), déploie le contenu de `app/dist/` sur AlwaysData via `rsync` en SSH. AlwaysData est la seule cible de déploiement.
 
-La cible AlwaysData est configurée directement dans le workflow (bloc `env`) :
+Le site est déployé sur AlwaysData : http://openlaw.alwaysdata.net/
+
+La cible est configurée directement dans le workflow (bloc `env`) :
 
 - hôte SSH : `ssh-openlaw.alwaysdata.net`
 - utilisateur : `openlaw`
