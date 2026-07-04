@@ -217,6 +217,18 @@ export default function Gauge({
                 height={68}
                 preserveAspectRatio="xMidYMid meet"
               />
+              {/* Nom sous le logo (IA et AN de MarIANne aux couleurs de la charte) */}
+              <text
+                x={miroir ? 208 - CX - R * 0.42 : CX + R * 0.42}
+                y={CY + 65}
+                className="logo-nom"
+                textAnchor="middle"
+              >
+                Mar
+                <tspan fill={VIOLET}>IA</tspan>
+                <tspan fill={BLEU}>N</tspan>
+                ne
+              </text>
             </g>
           )}
         </svg>

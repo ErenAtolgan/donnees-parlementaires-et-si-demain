@@ -173,6 +173,14 @@
   display: block;
 }
 
+/* Nom MarIANne sous le logo central */
+.logo-nom {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 800;
+  fill: var(--primary);
+}
+
 /* Poles de l'axe dans le SVG */
 .axe-label {
   font-family: var(--font-sans);
