@@ -65,6 +65,72 @@
   padding: 3rem 1.5rem;
 }
 
+/* Zone hemicycles : menu + carte */
+.hemicycle-zone {
+  width: 100%;
+  max-width: 420px;
+}
+
+.menu-hemicycles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.onglets {
+  flex: 1;
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.3rem;
+  background: var(--muted, #eef1f5);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.onglet {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.onglet:hover {
+  color: var(--primary);
+}
+
+.onglet-actif {
+  background: var(--background);
+  color: var(--primary);
+  box-shadow: 0 1px 2px rgba(22, 22, 22, 0.08);
+}
+
+.btn-bascule {
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: var(--background);
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #2f5fd8; /* bleu du logo */
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-bascule:hover {
+  background: var(--muted, #eef1f5);
+  transform: scale(1.05);
+}
+
 /* Carte indicateur */
 .carte {
   width: 100%;

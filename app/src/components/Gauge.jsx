@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 // Hemicycle PLEIN (demi-disque) oriente vers la droite, utilise comme axe :
 // pole bas = Efficacite, pole haut = Debat democratique.
@@ -114,9 +114,21 @@ function MainCurseur({ valeur }) {
   )
 }
 
-export default function Gauge({ label = 'Efficacité du débat démocratique' }) {
-  const [valeur, setValeur] = useState(62)
+export default function Gauge({
+  titre = 'Efficacité du débat démocratique',
+  poleHaut = 'Débat démocratique',
+  poleBas = 'Efficacité',
+  note,
+  valeurInitiale = 62,
+  logoCentre = false,
+  miroir = false,
+}) {
+  const uid = useId()
+  const [valeur, setValeur] = useState(valeurInitiale)
   const versLeHaut = valeur >= MILIEU
+
+  const gradLogo = `gradLogo-${uid}`
+  const gradDisque = `gradDisque-${uid}`
 
   // Bornes de la portion coloree : de l'extremite (haut ou bas) au curseur.
   const debut = versLeHaut ? valeur : 0
@@ -125,19 +137,19 @@ export default function Gauge({ label = 'Efficacité du débat démocratique' })
   return (
     <section className="carte">
       <p className="eyebrow">Indicateur prototype, design fiction</p>
-      <h1 className="carte-titre">{label}</h1>
+      <h1 className="carte-titre">{titre}</h1>
 
       <div className="gauge-wrap">
         <svg
           viewBox="0 -26 208 348"
           className="gauge-svg"
           role="img"
-          aria-label="Position du curseur entre efficacité (bas) et débat démocratique (haut)"
+          aria-label={`Position du curseur entre ${poleBas} (bas) et ${poleHaut} (haut)`}
         >
           <defs>
             {/* Degrade global du logo : violet (haut) -> bleu -> cyan (bas) */}
             <linearGradient
-              id="gradLogo"
+              id={gradLogo}
               gradientUnits="userSpaceOnUse"
               x1="0"
               y1={CY - R}
@@ -149,62 +161,82 @@ export default function Gauge({ label = 'Efficacité du débat démocratique' })
               <stop offset="100%" stopColor={CYAN} />
             </linearGradient>
             {/* Degrade de fond du demi-disque : teintes pales du logo */}
-            <linearGradient id="gradDisque" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={gradDisque} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#f0e7fb" />
               <stop offset="50%" stopColor="#eef1f8" />
               <stop offset="100%" stopColor="#e2f7fa" />
             </linearGradient>
           </defs>
 
-          {/* Poles de l'axe */}
-          <text x={14} y={-10} className="axe-label">
-            Débat démocratique
+          {/* Poles de l'axe (hors miroir pour rester lisibles) */}
+          <text x={miroir ? 194 : 14} y={-10} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
+            {poleHaut}
           </text>
-          <text x={14} y={312} className="axe-label">
-            Efficacité
+          <text x={miroir ? 194 : 14} y={312} className="axe-label" textAnchor={miroir ? 'end' : 'start'}>
+            {poleBas}
           </text>
 
-          {/* Hemicycle plein (demi-disque bombe a droite) */}
-          <path
-            d={`M ${CX} ${CY + R} A ${R} ${R} 0 0 0 ${CX} ${CY - R} Z`}
-            fill="url(#gradDisque)"
-            stroke="#dddddd"
-          />
+          {/* Dessin, reflete horizontalement si miroir (bombe a gauche) */}
+          <g transform={miroir ? 'translate(208 0) scale(-1 1)' : undefined}>
+            {/* Hemicycle plein (demi-disque bombe a droite) */}
+            <path
+              d={`M ${CX} ${CY + R} A ${R} ${R} 0 0 0 ${CX} ${CY - R} Z`}
+              fill={`url(#${gradDisque})`}
+              stroke="#dddddd"
+            />
 
-          {/* Arc de l'extremite (haut ou bas) jusqu'au curseur */}
-          <path
-            d={cheminArc(debut, fin)}
-            fill="none"
-            stroke="url(#gradLogo)"
-            strokeWidth={10}
-            strokeLinecap="round"
-          />
+            {/* Arc de l'extremite (haut ou bas) jusqu'au curseur */}
+            <path
+              d={cheminArc(debut, fin)}
+              fill="none"
+              stroke={`url(#${gradLogo})`}
+              strokeWidth={10}
+              strokeLinecap="round"
+            />
 
-          {/* Main pointant la position */}
-          <MainCurseur valeur={valeur} />
+            {/* Main pointant la position */}
+            <MainCurseur valeur={valeur} />
+          </g>
+
+          {/* Logo au centre du demi-disque (seconde vue du recit), jamais reflete */}
+          {logoCentre && (
+            <g>
+              {/* Centre visuel du demi-disque : a ~0.42 R du bord plat */}
+              <circle
+                cx={miroir ? 208 - CX - R * 0.42 : CX + R * 0.42}
+                cy={CY}
+                r={42}
+                fill="#ffffff"
+                stroke="#dddddd"
+              />
+              <image
+                href="/logo.png"
+                x={(miroir ? 208 - CX - R * 0.42 : CX + R * 0.42) - 34}
+                y={CY - 34}
+                width={68}
+                height={68}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </g>
+          )}
         </svg>
       </div>
 
       <div className="reglage">
-        <span className="pole">Efficacité</span>
+        <span className="pole">{poleBas}</span>
         <input
-          id="valeur"
+          id={`valeur-${uid}`}
           type="range"
           min="0"
           max="100"
           value={valeur}
           onChange={(e) => setValeur(Number(e.target.value))}
-          aria-label="Position entre efficacité et débat démocratique"
+          aria-label={`Position entre ${poleBas} et ${poleHaut}`}
         />
-        <span className="pole">Débat démocratique</span>
+        <span className="pole">{poleHaut}</span>
       </div>
 
-      <p className="carte-note">
-        Indicateur synthétique calculé à partir des données ouvertes de l'Assemblée (comptes
-        rendus de séance, votes, amendements). Déplacez le curseur pour situer un texte entre
-        efficacité de la procédure (bas) et intensité du débat en hémicycle (haut), et
-        interroger ce que l'on souhaite mesurer, automatiser et rendre public demain.
-      </p>
+      {note && <p className="carte-note">{note}</p>}
     </section>
   )
 }
