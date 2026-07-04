@@ -66,7 +66,7 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 <!-- Ajoutez vos captures : - [Image 2](images/image-2.png) -->
 
 ### Documents
-[Présentation](hackathon-an-2026/Et si, en 2035, nous plaçons l’IA au coeurde la fabrique de la loi et du débat démocratique .pdf)
+[Présentation](Et si, en 2035, nous plaçons l’IA au coeurde la fabrique de la loi et du débat démocratique.pdf)
 
 ### URL de démonstration
 <!-- Renseignez l'URL de votre demo une fois deployee -->
