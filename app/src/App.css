@@ -32,6 +32,28 @@
   border-radius: 8px;
 }
 
+/* Bloc logo + nom MarIANne dans l'en-tete */
+.logo-bloc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-nom {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.logo-nom-ia {
+  color: #7c2ae8; /* violet du logo */
+}
+
+.logo-nom-an {
+  color: #2f5fd8; /* bleu du logo */
+}
+
 .brand-bar {
   width: 4px;
   height: 40px;
@@ -167,14 +189,6 @@
 /* Orientations horizontales (bombe en bas ou en haut) : dessin plus large */
 .gauge-svg-large {
   max-width: 330px;
-}
-
-/* Nom MarIANne sous le logo central */
-.logo-nom {
-  font-family: var(--font-serif);
-  font-size: 19px;
-  font-weight: 800;
-  fill: var(--primary);
 }
 
 /* Poles de l'axe dans le SVG */

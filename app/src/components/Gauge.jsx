@@ -181,7 +181,6 @@ export default function Gauge({
   const rLogo = 24
   const tailleImg = 38
   const [xLogo, yLogo] = [CX, CY]
-  const yNom = yLogo + rLogo + 18
 
   return (
     <section className="carte">
@@ -259,13 +258,6 @@ export default function Gauge({
                 height={tailleImg}
                 preserveAspectRatio="xMidYMid meet"
               />
-              {/* Nom sous le logo (IA et AN de MarIANne aux couleurs de la charte) */}
-              <text x={xLogo} y={yNom} className="logo-nom" textAnchor="middle">
-                Mar
-                <tspan fill={VIOLET}>IA</tspan>
-                <tspan fill={BLEU}>N</tspan>
-                ne
-              </text>
             </g>
           )}
         </svg>
