@@ -17,27 +17,28 @@ const MILIEU = 50
 
 // Orientation du demi-disque : rotation horaire autour du centre du bord plat.
 // 0 = bombe a droite, 90 = bombe en bas, 180 = bombe a gauche, 270 = bombe en haut.
-// Chaque entree donne le viewBox et la position des libelles de poles.
+// Chaque entree donne le viewBox et la position des libelles de poles,
+// colles au plus pres de l'hemicycle (l'arc deborde de 5 sur le rayon R).
 const ORIENTATIONS = {
   0: {
-    viewBox: '0 -26 208 348',
-    haut: { x: 14, y: -10, anchor: 'start' },
-    bas: { x: 14, y: 312, anchor: 'start' },
+    viewBox: '0 -8 208 316',
+    haut: { x: 14, y: 6, anchor: 'start' },
+    bas: { x: 14, y: 301, anchor: 'start' },
   },
   90: {
-    viewBox: '-126 104 316 206',
-    haut: { x: 170, y: 118, anchor: 'end' },
-    bas: { x: -98, y: 118, anchor: 'start' },
+    viewBox: '-108 130 288 166',
+    haut: { x: 170, y: 144, anchor: 'end' },
+    bas: { x: -98, y: 144, anchor: 'start' },
   },
   180: {
-    viewBox: '-136 -26 208 348',
-    haut: { x: 58, y: 312, anchor: 'end' },
-    bas: { x: 58, y: -10, anchor: 'end' },
+    viewBox: '-136 -8 208 316',
+    haut: { x: 58, y: 301, anchor: 'end' },
+    bas: { x: 58, y: 6, anchor: 'end' },
   },
   270: {
-    viewBox: '-126 -30 316 216',
-    haut: { x: -98, y: 176, anchor: 'start' },
-    bas: { x: 170, y: 176, anchor: 'end' },
+    viewBox: '-108 4 288 166',
+    haut: { x: -98, y: 162, anchor: 'start' },
+    bas: { x: 170, y: 162, anchor: 'end' },
   },
 }
 
@@ -216,14 +217,6 @@ export default function Gauge({
             </linearGradient>
           </defs>
 
-          {/* Poles de l'axe (hors rotation pour rester lisibles) */}
-          <text x={o.haut.x} y={o.haut.y} className="axe-label" textAnchor={o.haut.anchor}>
-            {poleHaut}
-          </text>
-          <text x={o.bas.x} y={o.bas.y} className="axe-label" textAnchor={o.bas.anchor}>
-            {poleBas}
-          </text>
-
           {/* Dessin, tourne selon l'orientation */}
           <g transform={rot ? `rotate(${rot} ${CX} ${CY})` : undefined}>
             {/* Hemicycle plein (demi-disque) */}
@@ -260,6 +253,15 @@ export default function Gauge({
               />
             </g>
           )}
+
+          {/* Poles de l'axe (hors rotation, dessines en dernier pour rester
+              lisibles au-dessus de la main quand le curseur est a l'extreme) */}
+          <text x={o.haut.x} y={o.haut.y} className="axe-label" textAnchor={o.haut.anchor}>
+            {poleHaut}
+          </text>
+          <text x={o.bas.x} y={o.bas.y} className="axe-label" textAnchor={o.bas.anchor}>
+            {poleBas}
+          </text>
         </svg>
       </div>
 

@@ -15,9 +15,9 @@ const HEMICYCLES = [
   },
   {
     id: 'recit',
-    menu: 'Vérité et volonté',
-    poleHaut: 'Vérité consensuelle',
-    poleBas: 'Volonté',
+    menu: 'Vérité et volonté politique',
+    poleHaut: 'Volonté politique',
+    poleBas: 'Vérité consensuelle',
     valeurInitiale: 50,
     logoCentre: true,
     orientation: 90,
