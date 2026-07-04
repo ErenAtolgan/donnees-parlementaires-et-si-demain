@@ -1,8 +1,43 @@
+import { useState } from 'react'
 import Gauge from './components/Gauge'
 import Logo from './components/Logo'
 import './App.css'
 
+// Les deux hemicycles proposes ; chacun garde sa propre position de curseur.
+const HEMICYCLES = [
+  {
+    id: 'debat',
+    menu: 'Débat démocratique',
+    titre: 'Efficacité du débat démocratique',
+    poleHaut: 'Débat démocratique',
+    poleBas: 'Efficacité',
+    valeurInitiale: 62,
+    note:
+      "Indicateur synthétique calculé à partir des données ouvertes de l'Assemblée (comptes " +
+      'rendus de séance, votes, amendements). Déplacez le curseur pour situer un texte entre ' +
+      "efficacité de la procédure (bas) et intensité du débat en hémicycle (haut), et " +
+      "interroger ce que l'on souhaite mesurer, automatiser et rendre public demain.",
+  },
+  {
+    id: 'transparence',
+    menu: 'Transparence',
+    titre: 'Transparence de la décision publique',
+    poleHaut: 'Transparence',
+    poleBas: 'Confidentialité',
+    valeurInitiale: 38,
+    note:
+      "Indicateur synthétique construit sur l'ouverture des données parlementaires (agendas, " +
+      'scrutins, documents préparatoires). Déplacez le curseur pour situer une décision entre ' +
+      'confidentialité des travaux (bas) et transparence complète du processus (haut), et ' +
+      'questionner le bon équilibre pour demain.',
+  },
+]
+
 export default function App() {
+  const [actif, setActif] = useState(0)
+
+  const basculer = () => setActif((a) => (a + 1) % HEMICYCLES.length)
+
   return (
     <div className="app">
       <header className="site-header">
@@ -19,7 +54,47 @@ export default function App() {
       </header>
 
       <main className="content">
-        <Gauge />
+        <div className="hemicycle-zone">
+          {/* Menu de choix de l'hemicycle + bascule directe */}
+          <nav className="menu-hemicycles" aria-label="Choix de l'hémicycle">
+            <div className="onglets" role="tablist">
+              {HEMICYCLES.map((h, i) => (
+                <button
+                  key={h.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === actif}
+                  className={`onglet${i === actif ? ' onglet-actif' : ''}`}
+                  onClick={() => setActif(i)}
+                >
+                  {h.menu}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="btn-bascule"
+              onClick={basculer}
+              title="Passer directement à l'autre hémicycle"
+              aria-label="Passer directement à l'autre hémicycle"
+            >
+              ⇄
+            </button>
+          </nav>
+
+          {/* Les deux hemicycles restent montes pour conserver leur curseur */}
+          {HEMICYCLES.map((h, i) => (
+            <div key={h.id} hidden={i !== actif}>
+              <Gauge
+                titre={h.titre}
+                poleHaut={h.poleHaut}
+                poleBas={h.poleBas}
+                note={h.note}
+                valeurInitiale={h.valeurInitiale}
+              />
+            </div>
+          ))}
+        </div>
       </main>
 
       <footer className="site-footer">
