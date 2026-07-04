@@ -62,16 +62,14 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 - [ ] `legiwatch-serveur-mcp-parlement` — Serveur MCP Parlement ✺ LegiWatch
 
 ### Galerie
-- [Scénarios de design fiction](images/cover.png)
+- [Prototype « Efficacité du débat démocratique »](images/cover.png)
 <!-- Ajoutez vos captures : - [Image 2](images/image-2.png) -->
 
 ### Documents
-[Présentation](Et si, en 2035, nous plaçons l’IA au coeurde la fabrique de la loi et du débat démocratique.pdf)
+[Présentation](docs/et-si-2030-ia-fabrique-de-la-loi.pdf)
 
 ### URL de démonstration
-<!-- Renseignez l'URL de votre demo une fois deployee -->
-https://votre-application.example.com
+http://openlaw.alwaysdata.net/
 
 ### Diapositives de présentation
-<!-- Deposez votre PDF dans docs/ puis referencez-le ici -->
-[Diapositives de présentation](docs/diapositives.pdf)
+[Diapositives de présentation](docs/et-si-2030-ia-fabrique-de-la-loi.pdf)
