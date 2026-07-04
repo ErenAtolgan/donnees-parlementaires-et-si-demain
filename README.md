@@ -14,6 +14,7 @@ Application web (React + Vite) présentant l'indicateur « Efficacité du débat
 ### Démarrer en local
 
 ```
+cd app
 npm install
 npm run dev
 ```
@@ -29,7 +30,9 @@ Puis ouvrir l'URL affichée par Vite.
 
 ## Structure du dépôt
 
-- `src/` : code du prototype (React)
+- `app/` : code du prototype (application React + Vite)
+  - `src/` : composants (`Gauge`, `Logo`, `App`)
+  - `public/` : assets statiques (`favicon.svg`, `logo.png`)
 - `hackathon-an-2026/` : dossier lu par la plateforme du hackathon
   - `DEFI.md` : contenu affiché sur la page du défi
   - `docs/` : documents référencés
