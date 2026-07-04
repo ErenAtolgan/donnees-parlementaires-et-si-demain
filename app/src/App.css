@@ -32,6 +32,28 @@
   border-radius: 8px;
 }
 
+/* Bloc logo + nom MarIANne dans l'en-tete */
+.logo-bloc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-nom {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.logo-nom-ia {
+  color: #7c2ae8; /* violet du logo */
+}
+
+.logo-nom-an {
+  color: #2f5fd8; /* bleu du logo */
+}
+
 .brand-bar {
   width: 4px;
   height: 40px;
@@ -144,21 +166,12 @@
 }
 
 .eyebrow {
-  margin: 0 0 0.5rem;
+  margin: 0 0 1.1rem;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted-foreground);
-}
-
-.carte-titre {
-  margin: 0 0 1.25rem;
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-size: 1.4rem;
-  line-height: 1.25;
-  color: var(--primary);
 }
 
 .gauge-wrap {
@@ -171,6 +184,11 @@
   max-width: 230px;
   height: auto;
   display: block;
+}
+
+/* Orientations horizontales (bombe en bas ou en haut) : dessin plus large */
+.gauge-svg-large {
+  max-width: 330px;
 }
 
 /* Poles de l'axe dans le SVG */
@@ -201,13 +219,6 @@
   flex: 1;
   min-width: 0;
   accent-color: #2f5fd8; /* bleu du logo */
-}
-
-.carte-note {
-  margin: 1.1rem 0 0;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  color: var(--muted-foreground);
 }
 
 /* Pied de page */
