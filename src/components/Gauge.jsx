@@ -114,7 +114,7 @@ function MainCurseur({ valeur }) {
   )
 }
 
-export default function Gauge({ label = 'Efficacité ou débat démocratique' }) {
+export default function Gauge({ label = 'Efficacité du débat démocratique' }) {
   const [valeur, setValeur] = useState(62)
   const versLeHaut = valeur >= MILIEU
 
@@ -124,7 +124,7 @@ export default function Gauge({ label = 'Efficacité ou débat démocratique' })
 
   return (
     <section className="carte">
-      <p className="eyebrow">Texte en discussion</p>
+      <p className="eyebrow">Indicateur prototype, design fiction</p>
       <h1 className="carte-titre">{label}</h1>
 
       <div className="gauge-wrap">
@@ -200,8 +200,10 @@ export default function Gauge({ label = 'Efficacité ou débat démocratique' })
       </div>
 
       <p className="carte-note">
-        Déplacez le curseur pour positionner le texte entre efficacité de la procédure (bas) et
-        ampleur du débat démocratique (haut).
+        Indicateur synthétique calculé à partir des données ouvertes de l'Assemblée (comptes
+        rendus de séance, votes, amendements). Déplacez le curseur pour situer un texte entre
+        efficacité de la procédure (bas) et intensité du débat en hémicycle (haut), et
+        interroger ce que l'on souhaite mesurer, automatiser et rendre public demain.
       </p>
     </section>
   )

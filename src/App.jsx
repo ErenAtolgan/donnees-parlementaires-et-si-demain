@@ -10,8 +10,8 @@ export default function App() {
           <div className="brand">
             <span className="brand-bar" aria-hidden="true" />
             <div>
-              <p className="brand-institution">Assemblée nationale</p>
-              <p className="brand-sub">Indicateurs parlementaires</p>
+              <p className="brand-institution">Données parlementaires : et si demain ?</p>
+              <p className="brand-sub">Hackathon 2026, Assemblée nationale</p>
             </div>
           </div>
           <Logo />
@@ -23,7 +23,10 @@ export default function App() {
       </main>
 
       <footer className="site-footer">
-        <p>Prototype - Hackathon 2026, Assemblée nationale</p>
+        <p>
+          Prototype de design fiction, défi « Données parlementaires : et si demain ? »,
+          Hackathon 2026 de l'Assemblée nationale
+        </p>
       </footer>
     </div>
   )
