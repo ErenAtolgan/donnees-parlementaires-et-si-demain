@@ -19,17 +19,17 @@ const HEMICYCLES = [
       "interroger ce que l'on souhaite mesurer, automatiser et rendre public demain.",
   },
   {
-    id: 'transparence',
-    menu: 'Transparence',
-    titre: 'Transparence de la décision publique',
-    poleHaut: 'Transparence',
-    poleBas: 'Confidentialité',
-    valeurInitiale: 38,
+    id: 'recit',
+    menu: 'Vérité et volonté',
+    titre: 'Entre vérité consensuelle et volonté',
+    poleHaut: 'Vérité consensuelle',
+    poleBas: 'Volonté',
+    valeurInitiale: 50,
+    logoCentre: true,
     note:
-      "Indicateur synthétique construit sur l'ouverture des données parlementaires (agendas, " +
-      'scrutins, documents préparatoires). Déplacez le curseur pour situer une décision entre ' +
-      'confidentialité des travaux (bas) et transparence complète du processus (haut), et ' +
-      'questionner le bon équilibre pour demain.',
+      'Seconde vue du récit : le même hémicycle, le logo en son centre. Déplacez le curseur ' +
+      'pour situer une décision entre la volonté (bas) et la vérité consensuelle (haut), et ' +
+      "interroger ce qui doit guider demain l'écriture de la loi.",
   },
 ]
 
@@ -91,6 +91,7 @@ export default function App() {
                 poleBas={h.poleBas}
                 note={h.note}
                 valeurInitiale={h.valeurInitiale}
+                logoCentre={h.logoCentre}
               />
             </div>
           ))}

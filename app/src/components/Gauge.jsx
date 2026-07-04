@@ -120,6 +120,7 @@ export default function Gauge({
   poleBas = 'Efficacité',
   note,
   valeurInitiale = 62,
+  logoCentre = false,
 }) {
   const uid = useId()
   const [valeur, setValeur] = useState(valeurInitiale)
@@ -189,6 +190,22 @@ export default function Gauge({
             strokeWidth={10}
             strokeLinecap="round"
           />
+
+          {/* Logo au centre du demi-disque (seconde vue du recit) */}
+          {logoCentre && (
+            <g>
+              {/* Centre visuel du demi-disque : a ~0.42 R du bord plat */}
+              <circle cx={CX + R * 0.42} cy={CY} r={42} fill="#ffffff" stroke="#dddddd" />
+              <image
+                href="/logo.png"
+                x={CX + R * 0.42 - 34}
+                y={CY - 34}
+                width={68}
+                height={68}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </g>
+          )}
 
           {/* Main pointant la position */}
           <MainCurseur valeur={valeur} />
