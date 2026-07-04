@@ -43,11 +43,20 @@ La cible est configurée directement dans le workflow (bloc `env`) :
 - utilisateur : `openlaw`
 - répertoire déployé : `/home/openlaw/www`
 
-Un seul secret est à configurer dans le dépôt GitHub (*Settings → Secrets and variables → Actions → New repository secret*) :
+Secrets à configurer dans le dépôt GitHub (*Settings → Secrets and variables → Actions*, onglet **Secrets**) :
 
 | Secret | Description |
 | --- | --- |
-| `ALWAYSDATA_SSH_KEY` | Clé privée SSH dédiée au déploiement ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (admin AlwaysData → *Accès distant → SSH → clés publiques* de l'utilisateur `openlaw`, ou `~/.ssh/authorized_keys`) |
+| `ALWAYSDATA_SSH_KEY` | Clé privée SSH dédiée au déploiement ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (admin AlwaysData → *Accès distant → SSH → clés publiques* de l'utilisateur `openlaw`, ou `~/.ssh/authorized_keys`). **Obligatoire.** |
+| `ALWAYSDATA_API_TOKEN` | Token de l'API AlwaysData, généré dans l'admin AlwaysData → https://admin.alwaysdata.com/token/ . Optionnel : sert à redémarrer le site après déploiement. |
+
+Variable à configurer (*Settings → Secrets and variables → Actions*, onglet **Variables**) :
+
+| Variable | Description |
+| --- | --- |
+| `ALWAYSDATA_SITE_ID` | Identifiant numérique du site AlwaysData, visible dans l'URL de sa page d'édition (`https://admin.alwaysdata.com/site/<id>/`). Optionnel : utilisé avec `ALWAYSDATA_API_TOKEN` pour le redémarrage. |
+
+Si le token ou le site ID ne sont pas renseignés, l'étape de redémarrage est simplement ignorée (le déploiement rsync reste effectué).
 
 Pour générer la paire de clés en local :
 
