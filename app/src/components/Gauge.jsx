@@ -83,12 +83,21 @@ function couleurValeur(v) {
 // pointent vers l'INTERIEUR de l'hemicycle (interieure=false pour l'exterieur).
 // Les doigts se deplient un a un en montant vers le pole haut
 // (index seul en bas -> main ouverte pouce compris).
+// La main est BICOLORE : degrade local le long de l'arc, du cote pole bas
+// vers le cote pole haut (a 50 %, cyan d'un cote, violet de l'autre).
 function MainCurseur({ valeur, interieure = true }) {
+  const uid = useId()
   const [x, y] = point(valeur, R)
   const deg = (angle(valeur) * 180) / Math.PI
   const rotation = 90 - deg + (interieure ? 180 : 0)
   const nb = valeur < 20 ? 1 : valeur < 40 ? 2 : valeur < 60 ? 3 : valeur < 80 ? 4 : 5
-  const couleur = couleurValeur(valeur)
+
+  // Degrade local en coordonnees de la main : l'axe x local suit l'arc
+  // (+x = vers le pole haut quand les doigts pointent vers l'interieur).
+  const clamp = (v) => Math.max(0, Math.min(100, v))
+  const gradMain = `gradMain-${uid}`
+  const [xBas, xHaut] = interieure ? [-14, 20] : [20, -14]
+  const couleur = `url(#${gradMain})`
 
   // Doigts de gauche a droite ; "ordre" = rang de depliage (index en premier).
   const doigts = [
@@ -102,6 +111,20 @@ function MainCurseur({ valeur, interieure = true }) {
 
   return (
     <g transform={`translate(${x} ${y}) rotate(${rotation})`}>
+      <defs>
+        <linearGradient
+          id={gradMain}
+          gradientUnits="userSpaceOnUse"
+          x1={xBas}
+          y1="0"
+          x2={xHaut}
+          y2="0"
+        >
+          <stop offset="0%" stopColor={couleurValeur(clamp(valeur - 35))} />
+          <stop offset="50%" stopColor={couleurValeur(valeur)} />
+          <stop offset="100%" stopColor={couleurValeur(clamp(valeur + 35))} />
+        </linearGradient>
+      </defs>
       {/* Halo blanc pour detacher la main de l'arc */}
       {doigts.map((d, i) => (
         <line

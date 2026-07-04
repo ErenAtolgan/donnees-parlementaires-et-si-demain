@@ -11,7 +11,7 @@ const HEMICYCLES = [
     menu: 'Débat démocratique',
     poleHaut: 'Débat démocratique',
     poleBas: 'Efficacité',
-    valeurInitiale: 62,
+    valeurInitiale: 50,
   },
   {
     id: 'recit',
