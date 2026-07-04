@@ -1,0 +1,29 @@
+/* Charte graphique Hackathon 2026 - Assemblee nationale
+   (tokens extraits du site officiel hackathon2026.assemblee-nationale.fr) */
+:root {
+  --primary: #233f6b; /* bleu marine Assemblee */
+  --primary-foreground: #ffffff;
+  --accent: #e1000f; /* rouge Marianne */
+  --green: #63e0be; /* vert menthe */
+  --foreground: #161616;
+  --muted-foreground: #666666;
+  --background: #ffffff;
+  --secondary: #f6f6f6;
+  --border: #dddddd;
+  --radius: 0.5rem;
+
+  --font-sans: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
