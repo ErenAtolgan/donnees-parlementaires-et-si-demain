@@ -74,17 +74,3 @@ jobs:
             -e "ssh -i ~/.ssh/id_deploy" \
             dist/ \
             "$ALWAYSDATA_SSH_USER@$ALWAYSDATA_SSH_HOST:$ALWAYSDATA_DEPLOY_PATH/"
-
-      - name: Redémarrage du site via l'API AlwaysData
-        env:
-          ALWAYSDATA_API_TOKEN: ${{ secrets.ALWAYSDATA_API_TOKEN }}
-          ALWAYSDATA_SITE_ID: ${{ vars.ALWAYSDATA_SITE_ID }}
-        run: |
-          if [ -z "$ALWAYSDATA_API_TOKEN" ] || [ -z "$ALWAYSDATA_SITE_ID" ]; then
-            echo "ALWAYSDATA_API_TOKEN et/ou ALWAYSDATA_SITE_ID non configurés : redémarrage ignoré."
-            exit 0
-          fi
-          curl -sS --fail -X POST \
-            --user "$ALWAYSDATA_API_TOKEN account=$ALWAYSDATA_SSH_USER:" \
-            "https://api.alwaysdata.com/v1/site/$ALWAYSDATA_SITE_ID/restart/"
-          echo "Site $ALWAYSDATA_SITE_ID redémarré."
