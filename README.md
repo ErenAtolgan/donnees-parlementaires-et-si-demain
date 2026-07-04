@@ -49,7 +49,15 @@ Un seul secret est à configurer dans le dépôt GitHub (*Settings → Secrets a
 | --- | --- |
 | `ALWAYSDATA_SSH_KEY` | Clé privée SSH dédiée au déploiement ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (admin AlwaysData → *Accès distant → SSH → clés publiques*, ou `~/.ssh/authorized_keys`) |
 
-Pour générer la paire de clés en local :
+**Configuration assistée (Windows / PowerShell)** — le script [`scripts/setup-alwaysdata.ps1`](scripts/setup-alwaysdata.ps1) fait tout en te demandant les valeurs (prérequis : la CLI [`gh`](https://cli.github.com/), `winget install GitHub.cli`) :
+
+```
+powershell -ExecutionPolicy Bypass -File scripts/setup-alwaysdata.ps1
+```
+
+Il crée le secret `ALWAYSDATA_SSH_KEY` (en générant la clé si besoin), autorise la clé publique sur AlwaysData (`authorized_keys`), teste la connexion, et permet d'ajouter d'autres secrets/variables.
+
+**Configuration manuelle** — générer la paire de clés :
 
 ```
 ssh-keygen -t ed25519 -f alwaysdata_deploy -N "" -C "deploy-github-actions"
