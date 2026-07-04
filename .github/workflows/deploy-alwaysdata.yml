@@ -1,0 +1,71 @@
+name: CI/CD AlwaysData
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-alwaysdata-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Lint et build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Installation de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Installation des dépendances
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build de production
+        run: npm run build
+
+      - name: Publication de l'artefact de build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: app/dist
+
+  deploy:
+    name: Déploiement sur AlwaysData
+    # Déploie uniquement lors d'un push sur main (ou déclenchement manuel)
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Téléchargement de l'artefact de build
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Configuration de la clé SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.ALWAYSDATA_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.ALWAYSDATA_SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Rsync vers AlwaysData
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_deploy" \
+            dist/ \
+            "${{ secrets.ALWAYSDATA_SSH_USER }}@${{ secrets.ALWAYSDATA_SSH_HOST }}:${{ secrets.ALWAYSDATA_DEPLOY_PATH }}/"

@@ -28,6 +28,22 @@ Puis ouvrir l'URL affichée par Vite.
 - `npm run preview` : prévisualisation du build
 - `npm run lint` : analyse Oxlint
 
+### Déploiement (CI/CD)
+
+Le workflow GitHub Actions [`deploy-alwaysdata.yml`](.github/workflows/deploy-alwaysdata.yml) :
+
+- **CI** : lint (Oxlint) et build de production sur chaque pull request et push sur `main` ;
+- **CD** : à chaque push sur `main` (ou déclenchement manuel), déploie le contenu de `app/dist/` sur AlwaysData via `rsync` en SSH. AlwaysData est la seule cible de déploiement.
+
+Secrets à configurer dans le dépôt GitHub (*Settings → Secrets and variables → Actions*) :
+
+| Secret | Description | Exemple |
+| --- | --- | --- |
+| `ALWAYSDATA_SSH_HOST` | Hôte SSH du compte AlwaysData | `ssh-moncompte.alwaysdata.net` |
+| `ALWAYSDATA_SSH_USER` | Utilisateur SSH (activé dans *Accès distant → SSH* de l'admin AlwaysData) | `moncompte` |
+| `ALWAYSDATA_SSH_KEY` | Clé privée SSH ; la clé publique correspondante doit être ajoutée sur le compte AlwaysData (`~/.ssh/authorized_keys`) | contenu de `id_ed25519` |
+| `ALWAYSDATA_DEPLOY_PATH` | Répertoire cible servi par le site AlwaysData (type « Fichiers statiques ») | `/home/moncompte/www` |
+
 ## Structure du dépôt
 
 - `app/` : code du prototype (application React + Vite)
