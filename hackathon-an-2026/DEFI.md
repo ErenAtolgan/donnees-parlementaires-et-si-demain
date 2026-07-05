@@ -17,15 +17,18 @@ Atelier de design fiction explorant les futurs possibles des données ouvertes d
 - une participation citoyenne continue au processus législatif ;
 - des marchés prédictifs estimant la probabilité d'adoption d'un texte.
 
-Pour rendre ces futurs tangibles, nous prototypons **« Efficacité du débat démocratique »** : un indicateur synthétique, calculé à partir des données ouvertes de l'Assemblée (comptes rendus de séance, votes, amendements), qui donne à voir la qualité et l'intensité du débat en hémicycle. Il sert de support de discussion pour interroger ce que l'on souhaite (ou non) mesurer, automatiser et rendre public demain.
-
-Le déroulé de l'atelier alterne temps de projection (écriture des scénarios), analyse des opportunités et des risques associés à chaque futur, et manipulation du prototype pour ancrer la réflexion dans des choix concrets de conception.
+Pour rendre ces futurs tangibles, nous provotypons **« Efficacité du débat démocratique »** : un artefact qui donne à comprendre ce qui se joue sous l'injonction de transparence et d'efficacité du débat parlementaire.
 
 ### Image principale
 ![Image principale](images/cover.png)
 
 ### Contributeurs
 - Eren Atolgan
+- Barthélémy Lenfant
+- François Amat
+- René Sève
+- Fabien Lechevalier
+- Sumi Saint Auguste
 <!-- Ajoutez ici les autres contributeurs : - Prenom Nom -->
 
 ### Ressources utilisées
@@ -62,7 +65,7 @@ Cochez les ressources utilisées en remplaçant `[ ]` par `[x]`.
 - [ ] `legiwatch-serveur-mcp-parlement` — Serveur MCP Parlement ✺ LegiWatch
 
 ### Galerie
-- [Prototype « Efficacité du débat démocratique »](images/cover.png)
+- [Provotype « Efficacité du débat démocratique »](images/cover.png)
 <!-- Ajoutez vos captures : - [Image 2](images/image-2.png) -->
 
 ### Documents
