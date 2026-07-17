@@ -35,8 +35,8 @@ Concrètement, pour le Bureau de l’Assemblée nationale et les présidents de 
 Ainsi, les conflits de normes, les incohérences et ambiguïtés du projet ou de la proposition sont dûment, détectés, traités et résolus en amont... si bien que le débat est plié avant même d’avoir commencé.
 Si la situation sociale l’exige, alors on consent à déplacer le curseur, et à donner le champ nécessaire au plein exercice du débat parlementaire. 
 
-### Image principale
-![Image principale](images/cover.png)
+### Cartographie des acteurs, enjeux, hypothèses
+![Image principale](imageHackathonAN.png)
 
 En 2035, les vagues de chaleur étant le nouveau normal, avec son cortège de blackouts et d’interruption de services essentiels, les séances se sont déplacées en ligne, comme au temps du confinement. Le vote dématérialisé est désormais généralisé.  
 La modération des débats est opérée par l’IA, MarIANne. 
