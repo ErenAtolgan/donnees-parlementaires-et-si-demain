@@ -9,7 +9,7 @@ Atelier de design fiction sur les futurs possibles des données ouvertes du Parl
 
 ## Prototype
 
-Application web (React + Vite) présentant l'indicateur « Efficacité du débat démocratique ».
+Application web (React + Vite) présentant l'artefact « Curseur Efficacité du débat démocratique ».
 
 ### Démarrer en local
 
