@@ -5,9 +5,9 @@ Données parlementaires : et si demain ?
 Un atelier de design fiction qui imagine les futurs des données ouvertes du Parlement pour mieux comprendre les besoins, opportunités et risques d'aujourd'hui, illustré par un prototype d'indicateur d'efficacité du débat démocratique.
 
 ### Porteur
-Sumi Saint-Auguste et Fabien Lechevalier
+Sumi Saint Auguste, Fabien Lechevalier, Eren Atolgan
 
-### Description longue
+### Méthodologie, hypothèses
 Atelier de design fiction explorant les futurs possibles des données ouvertes de l'Assemblée nationale, afin de mieux comprendre les besoins, opportunités et risques du présent.
 
 À partir de scénarios spéculatifs (« et si demain... »), nous questionnons les usages souhaitables de la donnée parlementaire pour éclairer les choix d'aujourd'hui :
@@ -19,9 +19,39 @@ Atelier de design fiction explorant les futurs possibles des données ouvertes d
 
 Pour rendre ces futurs tangibles, nous provotypons **« Efficacité du débat démocratique »** : un artefact qui donne à comprendre ce qui se joue sous l'injonction de transparence et d'efficacité du débat parlementaire.
 
+Nous avons travaillé à répondre à la question : que veut la société ? autant qu'à nous saisir de ce “que peut la technologie ” 
+
+### Et si – en 2030 – 
+Nous placions l’IA au cœur de la fabrique de la loi et du débat démocratique ? 
+
+En 2030, la société impose une transparence de tous les instants. La vigilance citoyenne s’exerce radicalement. Les angles morts, les zones grises de l’influence, tout est traçable. 
+La Haute autorité pour la transparence de la vie publique (HATVP) tient désormais un registre d’absolument tous les moyens mobilisés dans la sphère législative, inclus les modèles et solutions d’intelligence artificielle utilisés par les députés et les partis politiques. 
+Cette contrainte de transparence a été érigée en un principe vertueux indiscutable pour réparer le lien de confiance entre les citoyens et les dépositaires de cette confiance, à savoir la représentation nationale. 
+
+Concrètement, pour le Bureau de l’Assemblée nationale et les présidents de commission, en fonction de l’agenda des priorités politiques, tout est affaire de curseur. Ce sont eux qui en ont le contrôle, et choisissent de le déplacer entre :  
+- Un impératif d’efficacité,
+- La liberté de débattre démocratiquement. 
+
+Ainsi, les conflits de normes, les incohérences et ambiguïtés du projet ou de la proposition sont dûment, détectés, traités et résolus en amont... si bien que le débat est plié avant même d’avoir commencé.
+Si la situation sociale l’exige, alors on consent à déplacer le curseur, et à donner le champ nécessaire au plein exercice du débat parlementaire. 
+
 ### Image principale
 ![Image principale](images/cover.png)
 
+En 2035, les vagues de chaleur étant le nouveau normal, avec son cortège de blackouts et d’interruption de services essentiels, les séances se sont déplacées en ligne, comme au temps du confinement. Le vote dématérialisé est désormais généralisé.  
+La modération des débats est opérée par l’IA, MarIANne. 
+Comme toute IA, elle est toujours :  
+- Disponible,  
+- Prévenante,  
+- Prompte à reformuler, 
+- D'une neutralité reposante,  
+- Consensuelle.  
+Est-ce que l’on veut du consensus ? Est-ce que le débat public se nourrit d’une vérité moyenne et tiède, produite par des IA probabilistes ? 
+
+Ce qui se joue dans le débat est une recherche active du compromis, un mouvement de convergence, une volonté politique collective de s’accorder. C’est l’essence même de l’exercice démocratique.  
+
+### Et si en 2027
+Nous nous posions la question : où placer le curseur ? 
 ### Contributeurs
 - Eren Atolgan
 - Barthélémy Lenfant
